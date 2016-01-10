@@ -1,0 +1,25 @@
+{
+  "name": "vanillamovies",
+  "version": "1.0.0",
+  "description": "Task's description:",
+  "main": "src/movieApp.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ninsy/vanillaMoviesApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ninsy/vanillaMoviesApp/issues"
+  },
+  "homepage": "https://github.com/ninsy/vanillaMoviesApp#readme",
+  "dependencies": {
+    "gulp": "^3.9.0",
+    "gulp-babel": "^6.1.1",
+    "gulp-eslint": "^1.1.1",
+    "jasmine": "^2.4.1"
+  }
+}
