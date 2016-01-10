@@ -3,7 +3,7 @@
 Task's description:
 
 TODO: 
-- **Parse the array of objects, display them in unordered list**
+- ~~**Parse the array of objects, display them in unordered list**~~
 - **For each film, print list of starting hours after click / hover-over and estimated length**
 - **Hide those hours, which customer is not able to watch, cause won't manage to get to the cinema in time**
 - **If price is lesser than 10pln, attach "discount" label next to the price / color it differently, if price is greater than 50pln, only print "Above 50pln"**
