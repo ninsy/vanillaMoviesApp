@@ -30,15 +30,16 @@ var moviesList = document.getElementById("moviesList")
 
 
 
-var validateTime = function(movieObject) {
+function validateTimeArray(movieObject) {
+
 
 	var currentTime = getCurrentHourNMinutes();
 	var validTimeStamps = [];
 
 	for(var i = 0; i < movieObject.time.length; i++) {
 
-		var thisTimeHours = this.time[i].getHours();
-		var thisTimeMinutes = this.time[i].getMinutes();
+		var thisTimeHours = movieObject.time[i].getHours();
+		var thisTimeMinutes = movieObject.time[i].getMinutes();
 
 		if(thisTimeHours > currentTime[0] || (thisTimeHours == currentTime[0] && thisTimeMinutes > currentTime[1])) {
 
@@ -81,13 +82,13 @@ var createListElement = function(movieObject) {
 	else if(movieObject.price > 50) moviePrice.innerText = "pow. 50PLN"
 
 
-	var returnedTimeStamps = validateTimeArray(this)
+	var returnedTimeStamps = validateTimeArray(movieObject)
 
 	if (returnedTimeStamps.length > 0) {
 
 		returnedTimeStamps.forEach(function(timeStamp) {
 
-			moviesTimes.appendChild(timeStamp)
+			movieTimes.appendChild(timeStamp)
 		});
 	}
 
@@ -120,6 +121,7 @@ var ListItemMovie = function(name, price, duration, time) {
   if(this.name.length > 0 && this.price > 0 && this.duration > 0 && this.time.length == time.length) {
 
      moviesList.appendChild(createListElement(this))
+		 debugger;
   }
 }
 
