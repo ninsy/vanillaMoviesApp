@@ -1,8 +1,9 @@
+"use_strict";
 var MOVIES = [{
 	"name": "Super Film",
 	"price": "12PLN",
 	"duration": "72min",
-	"time": ["12:00", "13:45", "20:00", "21:15"]
+	"time": ["12:00", "13:45", "20:00", "21:15", "22:22"]
 },{
 	"name": "Mniej Super Film",
 	"price": "16PLN",
@@ -25,127 +26,135 @@ var MOVIES = [{
 	"time": ["03:35", "16:00", "18:00"]
 }];
 
-var moviesList = document.getElementById("moviesList")
+var moviesApp = (function() {
 
+		// HELPER FUNCTIONS
 
-
-
-function validateTimeArray(movieObject) {
-
-
-	var currentTime = getCurrentHourNMinutes();
-	var validTimeStamps = [];
-
-	for(var i = 0; i < movieObject.time.length; i++) {
-
-		var thisTimeHours = movieObject.time[i].getHours();
-		var thisTimeMinutes = movieObject.time[i].getMinutes();
-
-		if(thisTimeHours > currentTime[0] || (thisTimeHours == currentTime[0] && thisTimeMinutes > currentTime[1])) {
-
-			var notYetDisplayed = document.createElement("li")
-			var notYetDisplayedTime = document.createElement("p")
-
-			if(thisTimeHours < 10) thisTimeHours = "0" + thisTimeHours;
-			if(thisTimeMinutes < 10) thisTimeMinutes = "0" + thisTimeMinutes;
-
-			notYetDisplayedTime.innerText = thisTimeHours + ":" + thisTimeMinutes
-			notYetDisplayed.appendChild(notYetDisplayedTime)
-
-			validTimeStamps.push(notYetDisplayed)
+		function validateTime(timeArr) {
+			if( (timeArr[0] >= 0 && timeArr[0] < 24 ) && ( timeArr[1] >=0 && timeArr[1] < 60 )) return true;
+			else return false;
 		}
-	}
-	return validTimeStamps
-}
 
-var createListElement = function(movieObject) {
+		function getCurrentHourNMinutes() {
+			var now = new Date()
+		  return [now.getHours(), now.getMinutes()]
+		}
 
-	var currentListElement = document.createElement("li")
-
-	var movieLabel = document.createElement("label")
-	var moviePrice = document.createElement("p")
-	var movieDuration = document.createElement("p")
-	var movieTimes = document.createElement("ul")
-
-	movieTimes.setAttribute("class", "timeTable")
-	movieLabel.innerText = movieObject.name
-	movieDuration.innerText = movieObject.duration + " minut."
-	moviePrice.innerText = movieObject.price + "PLN"
+		function validateTimeArray(movieObject) {
 
 
-	if(movieObject.price < 10) {
+			var currentTime = getCurrentHourNMinutes();
+			var validTimeStamps = [];
 
-		var bargainLabel = document.createElement("span")
-		bargainLabel.innerText = " promocja!"
-		moviePrice.appendChild(bargainLabel);
-	}
-	else if(movieObject.price > 50) moviePrice.innerText = "pow. 50PLN"
+			for(var i = 0; i < movieObject.time.length; i++) {
+
+				var thisTimeHours = movieObject.time[i].getHours();
+				var thisTimeMinutes = movieObject.time[i].getMinutes();
+
+				if(thisTimeHours > currentTime[0] || (thisTimeHours == currentTime[0] && thisTimeMinutes > currentTime[1])) {
+
+					var notYetDisplayed = document.createElement("li")
+					var notYetDisplayedTime = document.createElement("p")
+
+					if(thisTimeHours < 10) thisTimeHours = "0" + thisTimeHours;
+					if(thisTimeMinutes < 10) thisTimeMinutes = "0" + thisTimeMinutes;
+
+					notYetDisplayedTime.innerText = thisTimeHours + ":" + thisTimeMinutes
+					notYetDisplayed.appendChild(notYetDisplayedTime)
+
+					validTimeStamps.push(notYetDisplayed)
+				}
+			}
+			return validTimeStamps
+		}
+
+		// BASE FUNCTIONS
+
+		//
+		function createListElement(movieObject) {
+
+			var currentListElement = document.createElement("li")
+
+			var movieLabel = document.createElement("label")
+			var moviePrice = document.createElement("p")
+			var movieDuration = document.createElement("p")
+			var movieTimes = document.createElement("ul")
+
+			movieTimes.setAttribute("class", "timeTable")
+			movieLabel.innerText = movieObject.name
+			movieDuration.innerText = movieObject.duration + " minut."
+			moviePrice.innerText = movieObject.price + "PLN"
 
 
-	var returnedTimeStamps = validateTimeArray(movieObject)
+			if(movieObject.price < 10) {
 
-	if (returnedTimeStamps.length > 0) {
+				var bargainLabel = document.createElement("span")
+				bargainLabel.innerText = " promocja!"
+				moviePrice.appendChild(bargainLabel);
+			}
+			else if(movieObject.price > 50) moviePrice.innerText = "pow. 50PLN"
 
-		returnedTimeStamps.forEach(function(timeStamp) {
 
-			movieTimes.appendChild(timeStamp)
-		});
-	}
+			var returnedTimeStamps = validateTimeArray(movieObject)
 
- 	currentListElement.appendChild(movieLabel);
- 	currentListElement.appendChild(moviePrice);
- 	currentListElement.appendChild(movieDuration);
- 	currentListElement.appendChild(movieTimes);
+			if (returnedTimeStamps.length > 0) {
 
-	return currentListElement
-}
+				returnedTimeStamps.forEach(function(timeStamp) {
 
-var ListItemMovie = function(name, price, duration, time) {
+					movieTimes.appendChild(timeStamp)
+				});
+			}
 
-  this.name = name;
-  this.price = parseInt(price);
-  this.duration = parseInt(duration);
-  this.time = [];
+		 	currentListElement.appendChild(movieLabel);
+		 	currentListElement.appendChild(moviePrice);
+		 	currentListElement.appendChild(movieDuration);
+		 	currentListElement.appendChild(movieTimes);
 
-  for(var i = 0; i < time.length; i++) {
-    var timeArrayElement = time[i].split(":");
-    var current = new Date();
-    if(validateTime(timeArrayElement)) {
-      current.setHours(timeArrayElement[0]);
-      current.setMinutes(timeArrayElement[1]);
-      this.time.push(current);
-    }
-    else continue;
-  }
+			return currentListElement
+		}
 
-  if(this.name.length > 0 && this.price > 0 && this.duration > 0 && this.time.length == time.length) {
+		// "Constructor" for single movie element, used to push into unordered list at web-page
+		 function ListItemMovie(name, price, duration, time) {
 
-     moviesList.appendChild(createListElement(this))
-		 debugger;
-  }
-}
+		  this.name = name;
+		  this.price = parseInt(price);
+		  this.duration = parseInt(duration);
+		  this.time = [];
 
-var validateTime = function(singleTimeArray) {
-  if(singleTimeArray[0] >= 0 && singleTimeArray[0] < 24) {
-    if(singleTimeArray[1] >= 0 && singleTimeArray[0] < 60) {
-      return true;
-    }
-    else return false;
-  }
-  else return false;
-}
+		  for(let i = 0; i < time.length; i++) {
 
-var getCurrentHourNMinutes = function() {
-  var now = new Date()
-  var nowHour = now.getHours()
-  var nowMinutes = now.getMinutes()
-  return [nowHour, nowMinutes]
-}
+		    var timeArrayElement = time[i].split(":");
+		    var current = new Date();
 
-var instantiateMovies = function(moviesJSON) {
-  for(var i = 0; i < moviesJSON.length; i++) {
-    moviesJSON[i] = new ListItemMovie(moviesJSON[i].name, moviesJSON[i].price, moviesJSON[i].duration, moviesJSON[i].time )
-  }
-}
+		    if(validateTime(timeArrayElement)) {
+		      current.setHours(timeArrayElement[0]);
+		      current.setMinutes(timeArrayElement[1]);
+		      this.time.push(current);
+		    }
+		    else continue;
+		  }
 
-instantiateMovies(MOVIES);
+		  if(this.name.length > 0 && this.price > 0 && this.duration > 0 && this.time.length == time.length) {
+
+		     moviesList.appendChild(createListElement(this))
+				 debugger;
+		  }
+		}
+
+		// PUBLIC BASE FUNCTIONS
+
+		function init(mJSON) {
+			for(let i = 0; i < mJSON.length; i++) {
+				moviesDict[mJSON[i].name] = new ListItemMovie(mJSON[i].name, mJSON[i].price, mJSON[i].duration, mJSON[i].time )
+			}
+		}
+
+		var moviesDict = {}
+		var moviesList = document.getElementById("moviesList")
+
+		return {
+			init: init
+		}
+})()
+
+moviesApp.init(MOVIES)
