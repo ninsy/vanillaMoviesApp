@@ -1,30 +1,30 @@
 "use_strict";
-var MOVIES = [{
-	"name": "Super Film",
-	"price": "12PLN",
-	"duration": "72min",
-	"time": ["12:00", "13:45", "20:00", "21:15", "22:22"]
-},{
-	"name": "Mniej Super Film",
-	"price": "16PLN",
-	"duration": "186min",
-	"time": ["01:35", "14:35", "18:00"]
-},{
-	"name": "Mniej Fajny Film",
-	"price": "5PLN",
-	"duration": "63min",
-	"time": ["06:35", "17:10", "22:30"]
-},{
-	"name": "Bardzo Slaby Film",
-	"price": "60PLN",
-	"duration": "123min",
-	"time": ["12:20", "16:45", "21:00"]
-},{
-	"name": "Zupelnie Beznadziejny Film",
-	"price": "35PLN",
-	"duration": "95min",
-	"time": ["03:35", "16:00", "18:00"]
-}];
+			var MOVIES = [{
+				"name": "Super Film",
+				"price": "12PLN",
+				"duration": "72min",
+				"time": ["12:00", "13:45", "20:00", "21:15", "22:22"]
+			},{
+				"name": "Mniej Super Film",
+				"price": "16PLN",
+				"duration": "186min",
+				"time": ["01:35", "14:35", "18:00"]
+			},{
+				"name": "Mniej Fajny Film",
+				"price": "5PLN",
+				"duration": "63min",
+				"time": ["06:35", "17:10", "22:30"]
+			},{
+				"name": "Bardzo Slaby Film",
+				"price": "60PLN",
+				"duration": "123min",
+				"time": ["12:20", "16:45", "21:00"]
+			},{
+				"name": "Zupelnie Beznadziejny Film",
+				"price": "35PLN",
+				"duration": "95min",
+				"time": ["03:35", "16:00", "18:00"]
+			}];
 
 var moviesApp = (function() {
 
@@ -136,8 +136,7 @@ var moviesApp = (function() {
 
 		  if(this.name.length > 0 && this.price > 0 && this.duration > 0 && this.time.length == time.length) {
 
-		     moviesList.appendChild(createListElement(this))
-				 debugger;
+		    moviesList.appendChild(createListElement(this))
 		  }
 		}
 
