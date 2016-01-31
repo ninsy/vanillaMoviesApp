@@ -27,7 +27,24 @@ function loadMovieJson(url) {
 loadMovieJson("../movies.json")
   .then(function(json) {
     moviesArray = JSON.parse(json);
-  });
+    movieTab.init(moviesArray)
+  })
+  .then(function() {
+    var showButtons = document.getElementsByClassName("timeButton");
+    for(var i = 0; i < showButtons.length; i++) {
+
+      showButtons[i].addEventListener("click", function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+
+        var currentDropDown = event.target.nextSibling
+        var availableHours = currentDropDown.children
+
+        console.log("curr children : " + availableHours.length);
+      })
+    }
+  })
   .catch(function(error) {
     console.log(error);
   });
