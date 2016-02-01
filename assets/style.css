@@ -1,0 +1,76 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.singleMovie {
+  width: 75%;
+  display: inline-block;
+  text-align: center;
+  margin: 20px 12.5%
+}
+
+body {
+  margin: 0 auto;
+  padding: 0;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+.show {
+  display: block;
+}
+
+.dropdown-container {
+  display:none;
+  position:relative;;
+  overflow: auto;
+
+}
+
+.dropdown-container.show {
+  display: block;
+  background-color: #ADE6FF;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+.dropdown-container p {
+  display: block;
+  margin: 0;
+  padding: 0 16px;
+  border: 1px solid black
+}
+
+.timeButton {
+  color: white;
+  border: 1px solid #326170;
+  cursor: pointer;
+  padding: 12px 16px;
+  background-color: #5FB9D6;
+}
+
+.timeButton:hover {
+  background-color: #326170;
+  color:
+}
+
+#content {
+  border: 2px solid #A35B06;
+  background-color: #F09B39;
+}
+
+#moviesList {
+  padding: 0;
+}
+
+header {
+  text-align: center;
+  font-size: 2em;
+  border-bottom: 2px solid #A35B06;
+}
+
+span {
+  color: #69DFE8;
+  font-weight: bold;
+}

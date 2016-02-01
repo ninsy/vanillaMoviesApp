@@ -26,16 +26,17 @@ var movieTab = (function() {
 
 				if(thisTimeHours > currentTime[0] || (thisTimeHours == currentTime[0] && thisTimeMinutes > currentTime[1])) {
 
-					var notYetDisplayed = document.createElement("a")
+					//var notYetDisplayed = document.createElement("a")
 					var notYetDisplayedTime = document.createElement("p")
+
 
 					if(thisTimeHours < 10) thisTimeHours = "0" + thisTimeHours;
 					if(thisTimeMinutes < 10) thisTimeMinutes = "0" + thisTimeMinutes;
 
 					notYetDisplayedTime.innerText = thisTimeHours + ":" + thisTimeMinutes
-					notYetDisplayed.appendChild(notYetDisplayedTime)
+					//notYetDisplayed.appendChild(notYetDisplayedTime)
 
-					validTimeStamps.push(notYetDisplayed)
+					validTimeStamps.push(notYetDisplayedTime)
 				}
 			}
 			return validTimeStamps
@@ -44,7 +45,7 @@ var movieTab = (function() {
 		// BASE FUNCTIONS
 
 		//
-		function createListElement(movieObject) {
+		function createListElement(index,movieObject) {
 
 			var currentListElement = document.createElement("li")
 
@@ -58,7 +59,9 @@ var movieTab = (function() {
 			var timeContainer = document.createElement("div")
 			timeContainer.setAttribute("class", "dropdown-container")
 
+
 			showMoviesButton.setAttribute("class", "timeButton")
+			showMoviesButton.setAttribute("data-index", index)
 			showMoviesButton.innerText = "Show available hours"
 
 			movieLabel.innerText = movieObject.name
@@ -95,7 +98,7 @@ var movieTab = (function() {
 		}
 
 		// "Constructor" for single movie element, used to push into unordered list at web-page
-		 function ListItemMovie(name, price, duration, time) {
+		 function ListItemMovie(index,name, price, duration, time) {
 
 		  this.name = name;
 		  this.price = parseInt(price);
@@ -117,7 +120,7 @@ var movieTab = (function() {
 
 		  if(this.name.length > 0 && this.price > 0 && this.duration > 0 && this.time.length == time.length) {
 
-		    moviesList.appendChild(createListElement(this))
+		    moviesList.appendChild(createListElement(index,this))
 		  }
 		}
 
@@ -125,7 +128,7 @@ var movieTab = (function() {
 
 		function init(mJSON) {
 			for(let i = 0; i < mJSON.length; i++) {
-				moviesDict[mJSON[i].name] = new ListItemMovie(mJSON[i].name, mJSON[i].price, mJSON[i].duration, mJSON[i].time )
+				moviesDict[mJSON[i].name] = new ListItemMovie(i,mJSON[i].name, mJSON[i].price, mJSON[i].duration, mJSON[i].time )
 			}
 		}
 

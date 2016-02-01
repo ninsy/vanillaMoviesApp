@@ -1,4 +1,5 @@
 var moviesArray = null;
+var showButtons;
 
 function loadMovieJson(url) {
 
@@ -24,27 +25,40 @@ function loadMovieJson(url) {
   });
 }
 
+function initializer(json) {
+  moviesArray = JSON.parse(json);
+  movieTab.init(moviesArray)
+  showButtons = document.getElementsByClassName("timeButton");
+}
+
+function listenerInit() {
+
+  // initializing listeners to every button
+  for(var i = 0; i < showButtons.length; i++) {
+
+    showButtons[i].addEventListener("click", function(event) {
+
+      var currentDropDown = event.target.nextSibling
+      var availableHours = currentDropDown.children
+      var targetIndex = event.target.getAttribute("data-index")
+
+      currentDropDown.classList.toggle("show")
+
+      for(var j = 0; j < showButtons.length; j++) {
+        if(showButtons[j].getAttribute("data-index") != targetIndex) {
+          if(showButtons[j].nextSibling.classList.contains("show")) {
+            showButtons[j].nextSibling.classList.remove("show")
+          }
+        }
+      }
+
+    });
+  }
+}
+
 loadMovieJson("../movies.json")
-  .then(function(json) {
-    moviesArray = JSON.parse(json);
-    movieTab.init(moviesArray)
-  })
-  .then(function() {
-    var showButtons = document.getElementsByClassName("timeButton");
-    for(var i = 0; i < showButtons.length; i++) {
-
-      showButtons[i].addEventListener("click", function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        event.stopImmediatePropagation();
-
-        var currentDropDown = event.target.nextSibling
-        var availableHours = currentDropDown.children
-
-        console.log("curr children : " + availableHours.length);
-      })
-    }
-  })
+  .then(initializer)
+  .then(listenerInit)
   .catch(function(error) {
     console.log(error);
   });
