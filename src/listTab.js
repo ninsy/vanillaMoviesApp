@@ -87,6 +87,13 @@ var movieTab = (function() {
 					timeContainer.appendChild(timeStamp)
 				});
 			}
+			else {
+
+	        var noMoviesSpan = document.createElement("span");
+	        noMoviesSpan.innerText = "No more movies today!";
+	        noMoviesSpan.setAttribute("class", "noMoviesSpan")
+	        timeContainer.appendChild(noMoviesSpan);
+			}
 
 		 	currentListElement.appendChild(movieLabel);
 		 	currentListElement.appendChild(moviePrice);

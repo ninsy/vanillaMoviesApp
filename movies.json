@@ -7,7 +7,7 @@
 	"name": "Mniej Super Film",
 	"price": "16PLN",
 	"duration": "186min",
-	"time": ["01:35", "14:35", "18:00"]
+	"time": ["01:35", "14:35", "18:00", "23:59"]
 },{
 	"name": "Mniej Fajny Film",
 	"price": "5PLN",

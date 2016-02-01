@@ -9,6 +9,12 @@
   margin: 20px 12.5%
 }
 
+.noMoviesSpan {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #0D424F;
+}
+
 body {
   margin: 0 auto;
   padding: 0;
@@ -31,15 +37,15 @@ ul, ol {
 
 .dropdown-container.show {
   display: block;
-  background-color: #ADE6FF;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  /*box-shadow: 0 5px 10px rgba(0,0,0,0.1);*/
 }
 
-.dropdown-container p {
+.dropdown-container.show p {
   display: block;
   margin: 0;
   padding: 0 16px;
-  border: 1px solid black
+  border: 1px solid black;
+  background-color: #ADE6FF;
 }
 
 .timeButton {
