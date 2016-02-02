@@ -1,5 +1,6 @@
 var moviesArray = null;
 var showButtons;
+var sortingSelect;
 
 function loadMovieJson(url) {
 
@@ -29,31 +30,59 @@ function initializer(json) {
   moviesArray = JSON.parse(json);
   movieTab.init(moviesArray)
   showButtons = document.getElementsByClassName("timeButton");
+  sortingSelect = document.getElementById("sorter");
 }
 
 function listenerInit() {
 
-  // initializing listeners to every button
-  for(var i = 0; i < showButtons.length; i++) {
+  // event functions
+  function showButtonEvent(event) {
 
-    showButtons[i].addEventListener("click", function(event) {
+    var currentDropDown = event.target.nextSibling
+    var availableHours = currentDropDown.children
+    var targetIndex = event.target.getAttribute("data-index")
 
-      var currentDropDown = event.target.nextSibling
-      var availableHours = currentDropDown.children
-      var targetIndex = event.target.getAttribute("data-index")
+    currentDropDown.classList.toggle("show")
 
-      currentDropDown.classList.toggle("show")
-
-      for(var j = 0; j < showButtons.length; j++) {
-        if(showButtons[j].getAttribute("data-index") != targetIndex) {
-          if(showButtons[j].nextSibling.classList.contains("show")) {
-            showButtons[j].nextSibling.classList.remove("show")
-          }
+    for(var j = 0; j < showButtons.length; j++) {
+      if(showButtons[j].getAttribute("data-index") != targetIndex) {
+        if(showButtons[j].nextSibling.classList.contains("show")) {
+          showButtons[j].nextSibling.classList.remove("show")
         }
       }
-
-    });
+    }
   }
+
+  function sorterEvent(event) {
+
+    function byName() {
+
+    }
+
+    function byPrice() {
+
+    }
+
+    var optionSelected = sortingSelect.value
+
+    /// has to access moviesDict here somehow....
+
+    switch(optionSelected) {
+      case 'name':
+
+
+        break;
+      case 'price':
+
+
+        break;
+    }
+  }
+
+  // initializing listeners to every button
+  for(var i = 0; i < showButtons.length; i++) showButtons[i].addEventListener("click", showButtonEvent)
+  sortingSelect.addEventListener("change",sorterEvent )
+
 }
 
 loadMovieJson("../movies.json")
